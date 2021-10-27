@@ -1,6 +1,11 @@
 # Node-Express Application
+1. Create your own Node-Express application
+2. Instrument New Relic Node.js agent for your Node-Express application
+3. Configure logging with `winston` and `@newrelic/winston-enricher` npm packages
+4. Install New Relic Infrastructure Agent
+5. Configure infrastructure agent to send Node-Express logs to New Relic
 
-#Instructions
+## Instrument New Relic Logs with Context
 1. Install Node.js LTS
 2. Set-ExecutionPolicy Unrestricted (PowerShell only)
 3. Created a new express app:
@@ -90,13 +95,15 @@ router.get('/', function(req, res, next) {
 module.exports = router;
 ```
 
-5. Infrastructure Agent in Windows: C:\Program Files\New Relic\newrelic-infra\logging.d\file.yml
+5. Install New Relic Infrastructure Agent in Windows, and edit `newrelic-infra.yml` to contain your licnese key.
+
+6. Create `C:\Program Files\New Relic\newrelic-infra\logging.d\file.yml` with the following:
 
 ```
 logs:
-    # Basic tailing of a single file
+    # Basic tailing of a all .log files in directory
   - name: basic-file
-    file: C:\Users\Peter\Documents\GitHub\node-express\myExpressApp\logs\example.log
+    file: C:\Users\Peter\Documents\GitHub\node-express\myExpressApp\nrlogs\*.log
 ```
 
 6. Restart `New Relic Infrastructure Agent` and `node-express` application, and launch `http://localhost:3000/` and check New Relic for Logs in Context, Distributed Traces, etc.
