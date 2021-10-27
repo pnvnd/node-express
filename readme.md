@@ -12,26 +12,68 @@
     - `npm install newrelic --save` (APM module)
     - `npm install winston` (logging module)
     - `npm install @newrelic/winston-enricher` ([Logs with Context](https://www.npmjs.com/package/@newrelic/winston-enricher))
-    - `npm start`
+    - Copy `myExpressApp/node_modules/newrelic/newrelic.js` to root of application folder `myExpressApp` and add New Relic License Key
+    - `npm start` and check go to `http://localhost:3000/`
 
 4. Edit `index.js`:
 
+Add the following from the `@newrelic/winston-enricher` package under "Usage"
 ```
-var express = require('express');
-var router = express.Router();
+require('newrelic')
+const newrelicFormatter = require('@newrelic/winston-enricher')
+```
 
-// Logger configuration to send to file instead of console
+Add the following from the `winston` github "Readme":
+```
 const winston = require('winston');
-const logConfiguration = {
-  'transports': [
-      new winston.transports.File({
-          filename: 'logs/example.log'
-      })
-  ]
-};
 
-const logger = winston.createLogger(logConfiguration);
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    //
+    // - Write all logs with level `error` and below to `error.log`
+    // - Write all logs with level `info` and below to `combined.log`
+    //
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+  ],
+});
+```
 
+Remove `level` and `defaultMeta`:
+```
+const logger = winston.createLogger({
+  format: winston.format.json(),
+  transports: [
+    //
+    // - Write all logs with level `error` and below to `error.log`
+    // - Write all logs with level `info` and below to `combined.log`
+    //
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' }),
+  ],
+});
+```
+
+Replace `format` with the example from `@newrelic/winston-enricher` and change path to log files as needed:
+```
+const logger = winston.createLogger({
+  format: winston.format.combine(
+    winston.format.label({label: 'nrtest'}),
+    newrelicFormatter()
+  ),
+  transports: [
+      new winston.transports.File({ filename: 'nrlogs/error.log', level: 'error' }),
+      new winston.transports.File({ filename: 'nrlogs/info.log' })
+  ],
+});
+
+```
+
+Create some loggers with `info`, `warn`, and `error`:
+```
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -56,3 +98,5 @@ logs:
   - name: basic-file
     file: C:\Users\Peter\Documents\GitHub\node-express\myExpressApp\logs\example.log
 ```
+
+6. Restart `New Relic Infrastructure Agent` and `node-express` application, and launch `http://localhost:3000/` and check New Relic for Logs in Context, Distributed Traces, etc.

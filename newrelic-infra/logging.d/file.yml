@@ -1,0 +1,4 @@
+logs:
+    # Basic tailing of a all .log files in directory
+  - name: basic-file
+    file: C:\Users\Peter\Documents\GitHub\node-express\myExpressApp\nrlogs\*.log

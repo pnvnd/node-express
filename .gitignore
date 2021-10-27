@@ -1,1 +1,4 @@
+# Avoid pushing sensitive New Relic details to repository (license keys, agent logs, etc.)
 myExpressApp/newrelic.js
+myExpressApp/newrelic_agent.log
+myExpressApp/nrlogs
