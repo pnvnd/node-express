@@ -24,12 +24,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 
   // Log a message
-  logger.info('What rolls down stairs');
-  logger.info('alone or in pairs');
-  logger.info('and over your neighbors dog?');
-  logger.warn('Whats great for a snack');
-  logger.info('And fits on your back?');
-  logger.error('Its error and error');
+  logger.info('Information, working as intended.');
+  logger.warn('Warning, incoming game.');
+  logger.error('Error, exiting!');
 });
 
 module.exports = router;
