@@ -5,7 +5,7 @@
 4. Install New Relic Infrastructure Agent
 5. Configure infrastructure agent to send Node-Express logs to New Relic
 
-## Instrument New Relic Logs with Context
+## Instrument New Relic Logs in Context
 1. Install Node.js LTS
 2. Set-ExecutionPolicy Unrestricted (PowerShell only)
 3. Created a new express app:
