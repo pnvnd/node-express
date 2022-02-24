@@ -2,3 +2,4 @@
 myExpressApp/newrelic.js
 myExpressApp/newrelic_agent.log
 myExpressApp/nrlogs
+myExpressApp/node_modules

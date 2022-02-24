@@ -106,3 +106,32 @@ logs:
 6. Restart `New Relic Infrastructure Agent` and `node-express` application, and launch `http://localhost:3000/` and check New Relic for Logs in Context, Distributed Traces, etc.
 
 ![New Relic Screenshot](screenshot.gif)
+
+# Open Telemetry
+0. Set the following environment variables:
+```
+OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp.nr-data.net:4317
+OTEL_EXPORTER_OTLP_HEADERS=api-key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxNRAL
+```
+
+1. To instrument OTEL agent, install the following in the `myExpressApp` directory:
+```
+npm install --save @opentelemetry/api
+npm install --save @opentelemetry/sdk-node
+npm install --save @opentelemetry/auto-instrumentations-node
+npm install --save @opentelemetry/resources
+npm install --save @opentelemetry/exporter-trace-otlp-grpc
+npm install --save @opentelemetry/semantic-conventions
+npm install --save uuid
+```
+
+2. Create a new file `tracing.js` or copy the one in this repository.
+
+3. Edit the `package.json` file and change `"start": "node ./bin/www"` to `"start": "node -r ./tracing.js ./bin/www"`
+
+4. Start the application with `npm start`.
+
+5. Note: Service Name and Service Instance ID in `tracing.js` is overridden if environment variable exists:
+```
+OTEL_RESOURCE_ATTRIBUTES=service.name=node-express.otel,service.instance.id=d263a5aa-ceca-44e6-80a4-d5db619cf256
+```

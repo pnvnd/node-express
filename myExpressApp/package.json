@@ -3,10 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node -r ./tracing.js ./bin/www"
   },
   "dependencies": {
     "@newrelic/winston-enricher": "^2.1.0",
+    "@opentelemetry/api": "^1.0.4",
+    "@opentelemetry/auto-instrumentations-node": "^0.27.3",
+    "@opentelemetry/exporter-trace-otlp-grpc": "^0.27.0",
+    "@opentelemetry/resources": "^1.0.1",
+    "@opentelemetry/sdk-node": "^0.27.0",
+    "@opentelemetry/semantic-conventions": "^1.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -14,6 +20,7 @@
     "morgan": "~1.9.1",
     "newrelic": "^8.5.0",
     "pug": "2.0.0-beta11",
+    "uuid": "^8.3.2",
     "winston": "^3.3.3"
   }
 }
