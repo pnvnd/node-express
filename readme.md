@@ -20,9 +20,9 @@
     - Copy `myExpressApp/node_modules/newrelic/newrelic.js` to root of application folder `myExpressApp` and add New Relic License Key
     - `npm start` and check go to `http://localhost:3000/`
 
-4. Edit `index.js`:
+4. Edit `routes/index.js`:
 
-Add the following from the `@newrelic/winston-enricher` package under "Usage"
+Add the following from the `@newrelic/winston-enricher`:
 ```
 require('newrelic')
 const newrelicFormatter = require('@newrelic/winston-enricher')
