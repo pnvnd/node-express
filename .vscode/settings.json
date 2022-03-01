@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/96e98080-e35c-4963-a6e8-9748d470c233/resourceGroups/peternguyen/providers/Microsoft.Web/sites/datacrunch-node-express",
+    "appService.deploySubpath": "myExpressApp"
+}

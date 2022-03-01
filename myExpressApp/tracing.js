@@ -14,7 +14,7 @@ const { OTLPTraceExporter } = require("@opentelemetry/exporter-trace-otlp-grpc")
 //    service. This collection of attributes will be associated with all
 //    telemetry generated from this service (traces, metrics, logs).
 const resource = new Resource({
-  [SemanticResourceAttributes.SERVICE_NAME]: "node-express.otel",
+  [SemanticResourceAttributes.SERVICE_NAME]: "node-express.azure",
   [SemanticResourceAttributes.SERVICE_INSTANCE_ID]: uuidv4(),
 });
 
